@@ -1,0 +1,25 @@
+Aoa execution commands
+1. For C programs (.c files)
+Step 1: Compile the program
+gcc Exp1.c -o Exp1.exe
+
+
+Step 2: Run the program
+.\Exp1.exe
+
+2. For C++ programs (.cpp files)
+Step 1: Compile the program
+g++ Exp12.cpp -o Exp12.exe
+
+
+Step 2: Run the program
+.\Exp12.exe
+
+
+3. If you want to check your files
+dir
+
+
+This displays all files in your current folder.
+4. If you want to change folders
+cd "C:\Users\Shlok Mhatre\OneDrive\Desktop\Aoa Practicals"
