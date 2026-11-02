@@ -1,0 +1,991 @@
+1.QUESTION:
+
+Write a Program to Implement Selection Sort and Analyse Complexity for the Same.
+
+PROGRAM:
+
+#include <stdio.h>
+
+int main()
+{
+    int a[100], n, i, j, min, temp;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter %d elements:\n", n);
+
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    for(i = 0; i < n - 1; i++)
+    {
+        min = i;
+
+        for(j = i + 1; j < n; j++)
+        {
+            if(a[j] < a[min])
+            {
+                min = j;
+            }
+        }
+
+        temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+
+    printf("Sorted array in ascending order:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(n²)
+2. Average Case: O(n²)
+3. Worst Case: O(n²)
+4. Space Complexity: O(1)
+
+EXPLANATION:
+
+Selection Sort repeatedly finds the smallest element from the unsorted portion of the array and places it at the correct position.
+
+The outer loop executes (n-1) times.
+
+The inner loop performs comparisons to find the minimum element.
+
+Total comparisons:
+
+(n-1) + (n-2) + ... + 1
+
+= n(n-1)/2
+
+Therefore, time complexity is O(n²) in all three cases.
+
+Only a constant amount of extra memory is used for variables such as min and temp.
+
+Therefore, space complexity is O(1).
+
+2.QUESTION:
+
+Write a Program to Implement Insertion Sort and Analyse Complexity for It.
+
+PROGRAM:
+
+#include <stdio.h>
+
+int main()
+{
+    int a[100], n, i, j, key;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter %d elements:\n", n);
+
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    for(i = 1; i < n; i++)
+    {
+        key = a[i];
+        j = i - 1;
+
+        while(j >= 0 && a[j] > key)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+
+        a[j + 1] = key;
+    }
+
+    printf("Sorted array in ascending order:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(n)
+2. Average Case: O(n²)
+3. Worst Case: O(n²)
+4. Space Complexity: O(1)
+
+EXPLANATION:
+
+Insertion Sort takes one element at a time and inserts it into its correct position in the already sorted portion of the array.
+
+1. Best Case: O(n)
+   When the array is already sorted, only one comparison is required for each element.
+
+2. Average Case: O(n²)
+   When elements are in random order, comparisons and shifting are required.
+
+3. Worst Case: O(n²)
+   When the array is in reverse order, every element must be shifted to insert the current element.
+
+4. Space Complexity: O(1)
+   It uses only a constant amount of extra memory for variables such as key and j.
+
+CONCLUSION:
+
+Insertion Sort arranges elements by inserting each element into its correct position. Its best-case time complexity is O(n), while its average and worst-case time complexities are O(n²).
+
+3.QUESTION:
+
+Write a Program to Implement Merge Sort Using Divide & Conquer and Analyse Its Complexity.
+
+PROGRAM:
+
+#include <stdio.h>
+
+void merge(int a[], int low, int mid, int high)
+{
+    int i, j, k;
+    int b[100];
+
+    i = low;
+    j = mid + 1;
+    k = low;
+
+    while(i <= mid && j <= high)
+    {
+        if(a[i] < a[j])
+        {
+            b[k] = a[i];
+            i++;
+        }
+        else
+        {
+            b[k] = a[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i <= mid)
+    {
+        b[k] = a[i];
+        i++;
+        k++;
+    }
+
+    while(j <= high)
+    {
+        b[k] = a[j];
+        j++;
+        k++;
+    }
+
+    for(i = low; i <= high; i++)
+    {
+        a[i] = b[i];
+    }
+}
+
+void mergeSort(int a[], int low, int high)
+{
+    int mid;
+
+    if(low < high)
+    {
+        mid = (low + high) / 2;
+
+        mergeSort(a, low, mid);
+        mergeSort(a, mid + 1, high);
+
+        merge(a, low, mid, high);
+    }
+}
+
+int main()
+{
+    int a[100], n, i;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter %d elements:\n", n);
+
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    mergeSort(a, 0, n - 1);
+
+    printf("Sorted array in ascending order:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(n log n)
+2. Average Case: O(n log n)
+3. Worst Case: O(n log n)
+4. Space Complexity: O(n)
+
+EXPLANATION:
+
+Merge Sort uses the Divide and Conquer technique.
+
+It works in three steps:
+
+1. Divide:
+   The array is divided into two halves repeatedly until each subarray contains only one element.
+
+2. Conquer:
+   Each subarray is sorted recursively.
+
+3. Combine:
+   The sorted subarrays are merged to form a single sorted array.
+
+TIME COMPLEXITY:
+
+The array is divided into two halves at each level.
+
+Number of levels = log₂ n.
+
+At each level, merging takes O(n) time.
+
+Therefore, time complexity = O(n log n).
+
+Best Case = O(n log n)
+Average Case = O(n log n)
+Worst Case = O(n log n)
+
+SPACE COMPLEXITY:
+
+Merge Sort requires an additional temporary array to merge elements.
+
+Therefore, space complexity = O(n).
+
+CONCLUSION:
+
+Merge Sort is an efficient sorting algorithm based on Divide and Conquer. It provides O(n log n) time complexity in all three cases.
+
+4.QUESTION:
+
+Write a Program to Implement Quick Sort Using Divide & Conquer and Analyse Its Complexity.
+
+PROGRAM:
+
+#include <stdio.h>
+
+void quickSort(int a[], int low, int high)
+{
+    int i, j, pivot, temp;
+
+    if(low < high)
+    {
+        pivot = a[high];
+        i = low - 1;
+
+        for(j = low; j < high; j++)
+        {
+            if(a[j] < pivot)
+            {
+                i++;
+
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+
+        temp = a[i + 1];
+        a[i + 1] = a[high];
+        a[high] = temp;
+
+        int p = i + 1;
+
+        quickSort(a, low, p - 1);
+        quickSort(a, p + 1, high);
+    }
+}
+
+int main()
+{
+    int a[100], n, i;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter %d elements:\n", n);
+
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    quickSort(a, 0, n - 1);
+
+    printf("Sorted array in ascending order:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(n log n)
+2. Average Case: O(n log n)
+3. Worst Case: O(n²)
+
+4. Space Complexity:
+   Average Case: O(log n)
+   Worst Case: O(n)
+
+EXPLANATION:
+
+Quick Sort is a sorting algorithm based on the Divide and Conquer technique.
+
+It works in three steps:
+
+1. Divide:
+   Select an element called the pivot and partition the array so that smaller elements are placed before the pivot and larger elements after it.
+
+2. Conquer:
+   Recursively apply Quick Sort to the left and right subarrays.
+
+3. Combine:
+   The subarrays are sorted in place, so no separate merging step is required.
+
+TIME COMPLEXITY:
+
+Best Case: O(n log n)
+When the pivot divides the array into two nearly equal parts.
+
+Average Case: O(n log n)
+When the pivot divides the array reasonably well.
+
+Worst Case: O(n²)
+When the pivot is always the smallest or largest element, resulting in highly unbalanced partitions.
+
+SPACE COMPLEXITY:
+
+Average Case: O(log n)
+Due to recursive function calls.
+
+Worst Case: O(n)
+Due to maximum recursion depth when partitions are highly unbalanced.
+
+CONCLUSION:
+
+Quick Sort is an efficient sorting algorithm based on Divide and Conquer. Its average time complexity is O(n log n), but its worst-case time complexity is O(n²).
+
+
+5.QUESTION:
+
+Write a Program to Implement Knapsack Problem Using Greedy Method.
+
+PROGRAM:
+
+#include <stdio.h>
+
+int main()
+{
+    int n, i, j;
+    float weight[100], profit[100], ratio[100];
+    float capacity, totalProfit = 0, temp;
+
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+
+    printf("Enter profits of items:\n");
+    for(i = 0; i < n; i++)
+    {
+        scanf("%f", &profit[i]);
+    }
+
+    printf("Enter weights of items:\n");
+    for(i = 0; i < n; i++)
+    {
+        scanf("%f", &weight[i]);
+    }
+
+    printf("Enter knapsack capacity: ");
+    scanf("%f", &capacity);
+
+    for(i = 0; i < n; i++)
+    {
+        ratio[i] = profit[i] / weight[i];
+    }
+
+    for(i = 0; i < n - 1; i++)
+    {
+        for(j = i + 1; j < n; j++)
+        {
+            if(ratio[i] < ratio[j])
+            {
+                temp = ratio[i];
+                ratio[i] = ratio[j];
+                ratio[j] = temp;
+
+                temp = profit[i];
+                profit[i] = profit[j];
+                profit[j] = temp;
+
+                temp = weight[i];
+                weight[i] = weight[j];
+                weight[j] = temp;
+            }
+        }
+    }
+
+    for(i = 0; i < n; i++)
+    {
+        if(capacity >= weight[i])
+        {
+            totalProfit += profit[i];
+            capacity -= weight[i];
+        }
+        else
+        {
+            totalProfit += ratio[i] * capacity;
+            break;
+        }
+    }
+
+    printf("Maximum Profit = %.2f\n", totalProfit);
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(n²)
+2. Average Case: O(n²)
+3. Worst Case: O(n²)
+4. Space Complexity: O(n)
+
+EXPLANATION:
+
+The Knapsack Problem is solved using the Greedy Method by selecting items according to their profit-to-weight ratio.
+
+STEPS:
+
+1. Calculate the profit-to-weight ratio of each item.
+2. Sort items in descending order of their ratio.
+3. Select items with the highest ratio first.
+4. If the complete item cannot fit, select the fraction that fits.
+5. Stop when the knapsack becomes full.
+
+TIME COMPLEXITY:
+
+Calculating profit-to-weight ratios takes O(n) time.
+
+Sorting items using nested loops takes O(n²) time.
+
+Selecting items takes O(n) time.
+
+Therefore, overall time complexity = O(n²).
+
+SPACE COMPLEXITY:
+
+Three arrays are used to store weights, profits and ratios.
+
+Therefore, space complexity = O(n).
+
+CONCLUSION:
+
+The Greedy Method solves the Fractional Knapsack Problem by selecting items with the highest profit-to-weight ratio to obtain maximum profit.
+
+
+6.QUESTION:
+
+Write a Program to Find Minimum Cost Spanning Tree Using Kruskal's Method.
+
+PROGRAM:
+
+#include <stdio.h>
+
+int parent[20];
+
+int find(int i)
+{
+    while(parent[i] != i)
+    {
+        i = parent[i];
+    }
+    return i;
+}
+
+void unionSet(int i, int j)
+{
+    int a = find(i);
+    int b = find(j);
+
+    parent[a] = b;
+}
+
+int main()
+{
+    int cost[20][20];
+    int n, i, j, u, v;
+    int min, minCost = 0;
+    int edges = 0;
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter cost adjacency matrix:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        for(j = 0; j < n; j++)
+        {
+            scanf("%d", &cost[i][j]);
+
+            if(cost[i][j] == 0)
+                cost[i][j] = 999;
+        }
+    }
+
+    for(i = 0; i < n; i++)
+    {
+        parent[i] = i;
+    }
+
+    printf("\nEdges in Minimum Spanning Tree:\n");
+
+    while(edges < n - 1)
+    {
+        min = 999;
+
+        for(i = 0; i < n; i++)
+        {
+            for(j = 0; j < n; j++)
+            {
+                if(cost[i][j] < min)
+                {
+                    min = cost[i][j];
+                    u = i;
+                    v = j;
+                }
+            }
+        }
+
+        int a = find(u);
+        int b = find(v);
+
+        if(a != b)
+        {
+            printf("%d - %d : %d\n", u, v, min);
+
+            minCost += min;
+            unionSet(u, v);
+            edges++;
+        }
+
+        cost[u][v] = 999;
+        cost[v][u] = 999;
+    }
+
+    printf("\nMinimum Cost = %d\n", minCost);
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(V³)
+2. Average Case: O(V³)
+3. Worst Case: O(V³)
+
+Space Complexity: O(V²)
+
+EXPLANATION:
+
+Kruskal's Algorithm is a Greedy Algorithm used to find the Minimum Spanning Tree (MST) of a connected, weighted and undirected graph.
+
+STEPS:
+
+1. Read the cost adjacency matrix.
+2. Find the minimum-weight edge.
+3. Check whether adding the edge creates a cycle.
+4. If no cycle is formed, include the edge in the Minimum Spanning Tree.
+5. Repeat until V-1 edges are selected.
+
+TIME COMPLEXITY:
+
+The algorithm selects V-1 edges.
+
+For every edge selection, it searches the entire adjacency matrix using two nested loops, taking O(V²) time.
+
+Therefore, overall time complexity = O(V³).
+
+SPACE COMPLEXITY:
+
+The adjacency matrix requires O(V²) space.
+
+The parent array requires O(V) space.
+
+Therefore, overall space complexity = O(V²).
+
+CONCLUSION:
+
+Kruskal's Algorithm uses the Greedy Method to find the Minimum Spanning Tree by selecting minimum-weight edges without forming cycles.
+
+
+7.QUESTION:
+
+Write a Program to Find the Longest Common Subsequence from Given Strings.
+
+PROGRAM:
+
+#include <stdio.h>
+#include <string.h>
+
+int max(int a, int b)
+{
+    return (a > b) ? a : b;
+}
+
+int main()
+{
+    char X[100], Y[100];
+    int L[100][100];
+    int m, n, i, j, index;
+
+    printf("Enter first string: ");
+    scanf("%s", X);
+
+    printf("Enter second string: ");
+    scanf("%s", Y);
+
+    m = strlen(X);
+    n = strlen(Y);
+
+    for(i = 0; i <= m; i++)
+    {
+        for(j = 0; j <= n; j++)
+        {
+            if(i == 0 || j == 0)
+            {
+                L[i][j] = 0;
+            }
+            else if(X[i - 1] == Y[j - 1])
+            {
+                L[i][j] = L[i - 1][j - 1] + 1;
+            }
+            else
+            {
+                L[i][j] = max(L[i - 1][j],
+                              L[i][j - 1]);
+            }
+        }
+    }
+
+    index = L[m][n];
+
+    char lcs[index + 1];
+    lcs[index] = '\0';
+
+    i = m;
+    j = n;
+
+    while(i > 0 && j > 0)
+    {
+        if(X[i - 1] == Y[j - 1])
+        {
+            lcs[index - 1] = X[i - 1];
+            i--;
+            j--;
+            index--;
+        }
+        else if(L[i - 1][j] > L[i][j - 1])
+        {
+            i--;
+        }
+        else
+        {
+            j--;
+        }
+    }
+
+    printf("Longest Common Subsequence: %s\n", lcs);
+    printf("Length of LCS: %d\n", L[m][n]);
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(m × n)
+2. Average Case: O(m × n)
+3. Worst Case: O(m × n)
+
+Space Complexity: O(m × n)
+
+EXPLANATION:
+
+Longest Common Subsequence (LCS) is solved using Dynamic Programming.
+
+STEPS:
+
+1. Read two input strings.
+2. Find the length of both strings.
+3. Create a DP table to store LCS lengths.
+4. If characters match, add 1 to the diagonal value.
+5. If characters do not match, take the maximum value from the left or upper cell.
+6. Trace back through the table to find the longest common subsequence.
+
+TIME COMPLEXITY:
+
+Two nested loops are used to fill the DP table.
+
+Therefore, time complexity = O(m × n).
+
+SPACE COMPLEXITY:
+
+A two-dimensional DP table is used to store results.
+
+Therefore, space complexity = O(m × n).
+
+CONCLUSION:
+
+The Longest Common Subsequence problem is solved using Dynamic Programming to find the longest sequence common to two given strings.
+
+
+8.QUESTION:
+
+Write a Program to Implement N-Queen Problem Using Backtracking Approach.
+
+PROGRAM:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int board[20], n;
+
+int isSafe(int row, int col)
+{
+    int i;
+
+    for(i = 0; i < row; i++)
+    {
+        if(board[i] == col ||
+           abs(board[i] - col) == abs(i - row))
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+void printBoard()
+{
+    int i, j;
+
+    for(i = 0; i < n; i++)
+    {
+        for(j = 0; j < n; j++)
+        {
+            if(board[i] == j)
+                printf("Q ");
+            else
+                printf(". ");
+        }
+        printf("\n");
+    }
+}
+
+int solveNQueen(int row)
+{
+    int col;
+
+    if(row == n)
+    {
+        printBoard();
+        return 1;
+    }
+
+    for(col = 0; col < n; col++)
+    {
+        if(isSafe(row, col))
+        {
+            board[row] = col;
+
+            if(solveNQueen(row + 1))
+                return 1;
+        }
+    }
+
+    return 0;
+}
+
+int main()
+{
+    int i;
+
+    printf("Enter number of queens: ");
+    scanf("%d", &n);
+
+    for(i = 0; i < n; i++)
+    {
+        board[i] = -1;
+    }
+
+    if(solveNQueen(0))
+        printf("\nSolution Found!\n");
+    else
+        printf("No solution exists.\n");
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(N!)
+2. Average Case: O(N!)
+3. Worst Case: O(N!)
+
+Space Complexity: O(N)
+
+EXPLANATION:
+
+The N-Queen Problem is solved using the Backtracking Approach.
+
+The objective is to place N queens on an N × N chessboard so that no two queens attack each other.
+
+STEPS:
+
+1. Place a queen in the first row.
+2. Check whether the selected position is safe.
+3. If safe, place the queen and move to the next row.
+4. If no safe position is available, backtrack to the previous row.
+5. Repeat until all N queens are placed.
+
+TIME COMPLEXITY:
+
+The algorithm tries different column positions for each row.
+
+Since one queen is placed in each row and column, the worst-case search is bounded by N! possible arrangements.
+
+Therefore, worst-case time complexity = O(N!).
+
+SPACE COMPLEXITY:
+
+The board array stores the position of each queen.
+
+Recursive calls require additional stack space.
+
+Therefore, space complexity = O(N).
+
+CONCLUSION:
+
+The N-Queen Problem uses Backtracking to place N queens on a chessboard without attacking each other.
+
+
+
+9.QUESTION:
+
+Write a Program to Implement Naive String Matching Algorithm.
+
+PROGRAM:
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char text[100], pattern[100];
+    int n, m, i, j, found = 0;
+
+    printf("Enter the text: ");
+    scanf("%s", text);
+
+    printf("Enter the pattern: ");
+    scanf("%s", pattern);
+
+    n = strlen(text);
+    m = strlen(pattern);
+
+    for(i = 0; i <= n - m; i++)
+    {
+        for(j = 0; j < m; j++)
+        {
+            if(text[i + j] != pattern[j])
+                break;
+        }
+
+        if(j == m)
+        {
+            printf("Pattern found at position %d\n", i);
+            found = 1;
+        }
+    }
+
+    if(found == 0)
+    {
+        printf("Pattern not found.\n");
+    }
+
+    return 0;
+}
+
+COMPLEXITY ANALYSIS:
+
+1. Best Case: O(n - m + 1)
+2. Average Case: O(n × m)
+3. Worst Case: O(n × m)
+
+Space Complexity: O(1)
+
+EXPLANATION:
+
+Naive String Matching Algorithm is used to find a pattern in a given text.
+
+STEPS:
+
+1. Read the text and pattern.
+2. Compare the pattern with the text starting from the first position.
+3. If all characters match, display the starting position.
+4. If a mismatch occurs, shift the pattern one position to the right.
+5. Repeat until all possible positions are checked.
+
+TIME COMPLEXITY:
+
+The pattern is checked at every possible position in the text.
+
+In the worst case, up to m characters are compared at each of the (n - m + 1) positions.
+
+Therefore, worst-case time complexity = O(n × m).
+
+SPACE COMPLEXITY:
+
+Only a constant amount of extra memory is used for loop variables and flags.
+
+Therefore, space complexity = O(1).
+
+CONCLUSION:
+
+Naive String Matching Algorithm finds occurrences of a pattern in a given text by comparing characters one by one.
